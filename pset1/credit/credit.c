@@ -1,101 +1,74 @@
 #include <cs50.h>
+#include <stdbool.h>
 #include <stdio.h>
-#include <math.h>
 
 int main(void)
 {
-    // Prompt user the number
-    long n = get_long("Number: ");
+    // Prompt user for credit card number
+    long number = get_long("Number: ");
 
-    // Valitation Variable
-    int v = 0;
+    // Variables for Luhn's algorithm
+    int sum = 0;
+    bool alternate = false;
+    int digits = 0;
+    long temp = number;
 
-    // Individual Numbers for validation
-    int q = n % 10;
-    int w = (n /10) % 10 * 2;
-      if (w > 9) w = (w % 10) + ((w /10) % 10);
-      else w = w + 0;
-    int e = (n /100) % 10;
-    int r = (n /1000) % 10 * 2;
-      if (r > 9) r = (r % 10) + ((r /10) % 10);
-      else r = r + 0;
-    int t = (n /10000) % 10;
-    int y = (n /100000) % 10 * 2;
-      if (y > 9) y = (y % 10) + ((y /10) % 10);
-      else y = y + 0;
-    int u = (n /1000000) % 10;
-    int i = (n /10000000) % 10 * 2;
-      if (i > 9) i = (i % 10) + ((i /10) % 10);
-      else i = i + 0;
-    int o = (n /100000000) % 10;
-    int p = (n /1000000000) % 10 * 2;
-      if (p > 9) p = (p % 10) + ((p /10) % 10);
-      else p = p + 0;
-    int a = (n /10000000000) % 10;
-    int s = (n /100000000000) % 10 * 2;
-      if (s > 9) s = (s % 10) + ((s /10) % 10);
-      else s = s + 0;
-    int d = (n /1000000000000) % 10;
-    int f = (n /10000000000000) % 10 * 2;
-      if (f > 9) f = (f % 10) + ((f /10) % 10);
-      else f = f + 0;
-    int g = (n /100000000000000) % 10 ;
-    int h = (n /1000000000000000) % 10 * 2;
-      if (h > 9) h = (h % 10) + ((h /10) % 10);
-      else h = h + 0;
+    // Loop through each digit of the card number
+    while (temp > 0)
+    {
+        int digit = temp % 10;
+        if (alternate)
+        {
+            // Multiply every second digit by 2
+            digit *= 2;
+            // If product is two digits, add them together (e.g., 12 -> 1 + 2)
+            if (digit > 9)
+            {
+                digit = digit / 10 + digit % 10;
+            }
+        }
+        // Add digit to running sum
+        sum += digit;
+        // Toggle flag so we process every other digit
+        alternate = !alternate;
+        // Move to next digit
+        temp /= 10;
+        digits++;
+    }
 
- /*Print numbers (Check 01)
-    printf("%d\n", q);
-    printf("%d\n", w);
-    printf("%d\n", e);
-    printf("%d\n", r);
-    printf("%d\n", t);
-    printf("%d\n", y);
-    printf("%d\n", u);
-    printf("%d\n", i);
-    printf("%d\n", o);
-    printf("%d\n", p);
-    printf("%d\n", a);
-    printf("%d\n", s);
-    printf("%d\n", d);
-    printf("%d\n", f);
-    printf("%d\n", g);
-    printf("%d\n", h);*/
+    // If the final sum doesn't end in 0, it's invalid
+    if (sum % 10 != 0)
+    {
+        printf("INVALID\n");
+        return 0;
+    }
 
-    //Check Valid Number
-    int z = w + r + y + i + p + s + f + h;
-    int x = z + q + e + t + u + o + a + d + g;
-    x = x % 10;
-      if (x == 0) v = 1;
-    //printf("Validade: %d\n", v);
+    // Determine the first one and two digits for card type checks
+    temp = number;
+    while (temp >= 100)
+    {
+        temp /= 10;
+    }
+    int first_two = temp;
+    int first_one = temp / 10;
 
-    //Printing Results
-    if (v == 1 && (n /1000000000000000) % 10 == 4)
-      printf("VISA\n");
-    else if (v == 1 && (n /100000000000000) % 10 == 4)
-      printf("VISA\n");
-    else if (v == 1 && (n /10000000000000) % 10 == 4)
-      printf("VISA\n");
-    else if (v == 1 && (n /1000000000000) % 10 == 4)
-      printf("VISA\n");
-
-   else if (v == 1 && (n /1000000000000000) % 10 == 5 && (n /100000000000000) % 10 == 1)
-      printf("MASTERCARD\n");
-   else if (v == 1 && (n /1000000000000000) % 10 == 5 && (n /100000000000000) % 10 == 2)
-      printf("MASTERCARD\n");
-   else if (v == 1 && (n /1000000000000000) % 10 == 5 && (n /100000000000000) % 10 == 3)
-      printf("MASTERCARD\n");
-   else if (v == 1 && (n /1000000000000000) % 10 == 5 && (n /100000000000000) % 10 == 4)
-      printf("MASTERCARD\n");
-   else if (v == 1 && (n /1000000000000000) % 10 == 5 && (n /100000000000000) % 10 == 5)
-      printf("MASTERCARD\n");
-
-   else if (v == 1 && (n /100000000000000) % 10 == 3 && (n /10000000000000) % 10 == 4)
-      printf("AMEX\n");
-   else if (v == 1 && (n /100000000000000) % 10 == 3 && (n /10000000000000) % 10 == 7)
-      printf("AMEX\n");
-
+    // Identify card type by length and prefix
+    if (digits == 15 && (first_two == 34 || first_two == 37))
+    {
+        printf("AMEX\n");
+    }
+    else if (digits == 16 && (first_two >= 51 && first_two <= 55))
+    {
+        printf("MASTERCARD\n");
+    }
+    else if ((digits == 13 || digits == 16) && first_one == 4)
+    {
+        printf("VISA\n");
+    }
     else
-      printf("INVALID\n");
+    {
+        printf("INVALID\n");
+    }
 
+    return 0;
 }
