@@ -1,0 +1,30 @@
+sort1 uses: Bubble Sort
+How do you know?: The only one left.
+
+sort2 uses: Merge Sort
+How do you know?: Benchmarker sorter
+
+sort3 uses: Selection Sort
+How do you know?: Sorting time - on sorted files - is the biggest.
+
+// Testes
+
+- Sorted 5.000 (Times)
+Sort1: 0,047 + 0,000 + 0,025
+Sort2: 0,061 + 0,000 + 0,025
+Sort3: 0,690 + 0,022 + 0,028
+
+- Sorted 50.000 (Times)
+Sort1: 1,221 + 0,040 + 0,183
+Sort2: 1,445 + 0,048 + 0,193
+Sort3: 3,534 + 2,678 + 0,199
+
+- Random 50.000 (Times)
+Sort1: 8,426 + 6.926 + 0,220
+Sort2: 1,232 + 0,060 + 0,171
+Sort3: 3,842 + 2,644 + 0,181 (runned for comfirmation)
+
+- Random 5.000 (Times)
+Sort1: 0,099 + 0,049 + 0,030 (runned for comfirmation)
+Sort2: 0,042 + 0,006 + 0,015 (runned for comfirmation)
+Sort3: 0,050 + 0,034 + 0,015 (runned for comfirmation)

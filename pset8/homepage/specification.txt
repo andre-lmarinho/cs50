@@ -1,0 +1,11 @@
+HTML TAGS
+nav, header, section, div, h1, h2, h3, p, a, img, form, input, textarea, button, span
+
+CSS PROPERTIES
+font-size, margin-bottom, padding, border-radius, box-shadow, background-color, color
+
+JAVASCRIPT
+I used fetch + DOMContentLoaded to inject navbar/footer, implement smooth scrolling, bootstrap tooltips and form validation.
+
+BOOTSTRAP
+I leveraged the grid system, cards, navbar component, buttons and spacing/color utilities.

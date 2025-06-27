@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+<div class="container mt-4">
+    <h2>Transaction History</h2>
+
+    {% if transactions %}
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Symbol</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>Date/Time</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tx in transactions %}
+            <tr>
+                <td>{{ tx.symbol }}</td>
+                <td>{{ tx.shares }}</td>
+                <td>{{ tx.price|usd }}</td>
+                <td>{{ tx.transacted }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No transactions yet.</p>
+    {% endif %}
+
+    <h2>Cash Movements</h2>
+
+    {% if cash_movements %}
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Balance After</th>
+                <th>Description</th>
+                <th>Date/Time</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mv in cash_movements %}
+            <tr>
+                <td>{{ mv.type.capitalize() }}</td>
+                <td>{{ mv.amount|usd }}</td>
+                <td>{{ mv.balance_after|usd }}</td>
+                <td>{{ mv.description }}</td>
+                <td>{{ mv.datetime }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No cash movements yet.</p>
+    {% endif %}
+
+
+    <a href="/" class="btn btn-secondary mt-2">Back to Portfolio</a>
+</div>
+{% endblock %}

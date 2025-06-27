@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote Result
+{% endblock %}
+
+{% block main %}
+<div class="container mt-4">
+    <h2>Quote Result</h2>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Name</th>
+                <th>Symbol</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ name }}</td>
+                <td>{{ symbol }}</td>
+                <td>{{ price }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/quote" class="btn btn-secondary">Look up another</a>
+</div>
+{% endblock %}

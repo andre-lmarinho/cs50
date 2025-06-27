@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+<div class="container mt-4">
+    <h2>Buy Shares</h2>
+    <form action="/buy" method="post">
+        <div class="form-group">
+            <input class="form-control mx-auto w-auto" name="symbol" type="text"
+                placeholder="Stock Symbol (e.g., AAPL)"
+                autofocus>
+        </div>
+        <div class="form-group mt-2">
+            <input class="form-control mx-auto w-auto" name="shares"
+                type="text" placeholder="Number of Shares">
+        </div>
+        <button class="btn btn-primary mt-2" type="submit">Buy</button>
+    </form>
+</div>
+{% endblock %}
