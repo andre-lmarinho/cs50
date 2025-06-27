@@ -45,6 +45,7 @@ int main(int argc, string argv[])
         candidates[i].votes = 0;
     }
 
+    // Prompt for number of voters
     int voter_count = get_int("Number of voters: ");
 
     // Loop over all voters
@@ -61,6 +62,7 @@ int main(int argc, string argv[])
 
     // Display winner of election
     print_winner();
+    return 0;
 }
 
 // Update vote totals given a new vote
@@ -73,57 +75,33 @@ bool vote(string name)
         if (strcmp(name, candidates[i].name) == 0)
         {
             candidates[i].votes++;
-            return true;unzip 
+            return true;
         }
     }
 
-    //Else
+    // Name not found
     return false;
 }
 
 // Print the winner (or winners) of the election
 void print_winner(void)
 {
-    //Winner votes total
-    int nextboss = 0;
-
-    //Found the top voted
+    // Determine highest vote count
+    int highest = 0;
     for (int i = 0; i < candidate_count; i++)
     {
-        if (candidates[i].votes > nextboss)
+        if (candidates[i].votes > highest)
         {
-            nextboss = candidates[i].votes;
+            highest = candidates[i].votes;
         }
     }
 
-    //Print the winner(s)
-
-    // --- Code for been aproved on check50 -----
+    // Print the winner(s)
     for (int i = 0; i < candidate_count; i++)
     {
-        if (candidates[i].votes == nextboss)
+        if (candidates[i].votes == highest)
         {
             printf("%s\n", candidates[i].name);
         }
     }
-
-    // ------------- My Output ----------------
-    //ToDo: Was implemented on next PSet....
-    // - Check if is more then one and turn into plural?
-    // - Print a proper spacing simble, (, or - or anything)
-    //
-
-    //printf("The Next Big Boss: ");
-
-    //for (int i = 0; i < candidate_count; i++)
-    {
-        //if (candidates[i].votes == nextboss)
-        {
-            //printf("%s ", candidates[i].name);
-        }
-    }
-
-    //printf("\n");
-
-    return;
 }
